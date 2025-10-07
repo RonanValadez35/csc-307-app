@@ -47,6 +47,11 @@ const removeUserById = (id) => {
   return true;
 };
 
+
+const generateId = () => {
+    const id = Math.random();
+    return id;
+};
 // --- Routes ---
 app.get("/users", (req, res) => {
   const { name, job } = req.query;
@@ -73,10 +78,11 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  const userToAdd = req.body;
-  addUser(userToAdd);
-  res.status(201).send(userToAdd); // created
-});
+    const userToAdd = req.body;
+    userToAdd.id = String(generateId());       
+    addUser(userToAdd);
+    res.status(201).json(userToAdd);   // return the full user object as JSON
+  });
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params.id;
