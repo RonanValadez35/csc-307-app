@@ -1,5 +1,6 @@
 // backend.js
 import express from "express";
+import cors from "cors";
 
 const users = {
   users_list: [
@@ -14,6 +15,7 @@ const users = {
 const app = express();
 const port = 8000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -76,12 +78,10 @@ app.post("/users", (req, res) => {
   res.status(201).send(userToAdd); // created
 });
 
-// HARD DELETE: reuse /users/:id with HTTP DELETE
 app.delete("/users/:id", (req, res) => {
   const id = req.params.id;
   const deleted = removeUserById(id);
   if (!deleted) return res.status(404).send("Resource not found.");
-  // 204 No Content for successful hard delete
   res.status(204).send();
 });
 
