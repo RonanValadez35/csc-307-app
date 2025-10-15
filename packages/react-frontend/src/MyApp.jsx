@@ -10,7 +10,6 @@ function MyApp() {
 
     function updateList(person) {
         postUser(person)
-            .then((res) => res.json())                 
             .then((created) => setCharacters((prev) => [...prev, created]))
             .catch((error) => {
                 console.log(error);
@@ -32,7 +31,7 @@ function MyApp() {
     }, []);
 
     function postUser(person) {
-        const promise = fetch("Http://localhost:8000/users", {
+        return fetch("http://localhost:8000/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
