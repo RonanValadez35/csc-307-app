@@ -49,12 +49,12 @@ function MyApp() {
 
     function removeOneCharacter(index) {
         const userToDelete = characters[index];
-        if (!userToDelete || !userToDelete.id) {
+        if (!userToDelete || !userToDelete._id) {
             console.error("Cannot delete user: no ID found");
             return;
         }
 
-        fetch(`http://localhost:8000/users/${userToDelete.id}`, {
+        fetch(`http://localhost:8000/users/${userToDelete._id}`, {
             method: "DELETE",
         })
             .then((res) => {
